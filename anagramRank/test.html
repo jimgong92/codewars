@@ -1,0 +1,21 @@
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script src="anagramRank.js"></script>
+  <script>
+    var start = Date.now();
+    var testCases = ['A', 'ABAB', 'AAAB', 'BAAA', 'QUESTION', 'BOOKKEEPER'];
+    var solutions = [1, 2, 1, 4, 24572, 10743];
+    var res = [];
+    var success = true;
+    for (var i = 0; i < testCases.length; i++){
+      res.push(listPosition(testCases[i]));
+      if (res[i] !== solutions[i]) success = false;
+    }
+    console.log(success);
+    console.log("MS: " + (Date.now() - start));
+  </script>
+</body>
+</html>

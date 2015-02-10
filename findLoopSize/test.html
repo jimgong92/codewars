@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script src="findLoop.js"></script>
+  <script>
+    var node1 = new Node();
+    var node2 = new Node();
+    var node3 = new Node();
+    var node4 = new Node();
+    var node5 = new Node();
+    var node6 = new Node();
+    var node7 = new Node();
+    var node8 = new Node();
+    var node9 = new Node();
+    var node10 = new Node();
+    var node11 = new Node();
+    var node12 = new Node();
+    var node13 = new Node();
+    var node14 = new Node();
+
+    node1.next = node2;
+    node2.next = node3;
+    node3.next = node4;
+    node4.next = node5;
+    node5.next = node6;
+    node6.next = node7;
+    node7.next = node8;
+    node8.next = node9;
+    node9.next = node10;
+    node10.next = node11;
+    node11.next = node12;
+    node12.next = node13;
+    node13.next = node14;
+    node14.next = node4;
+
+    // node3.next = node4;
+    // node2.next = node3;
+    console.log(loop_size(node1));
+  </script>
+</body>
+</html>
