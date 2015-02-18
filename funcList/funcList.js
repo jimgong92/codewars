@@ -1,5 +1,6 @@
 function EmptyList(){}
 function ListNode(value, next){
-  this.value = value;
+  this.value = function();
   this.next = next;
+  this.isEmpty = function(){return false;}
 }
