@@ -9,12 +9,10 @@
  * Need to evaluate statements by order of operations
  */
 function evalMath(str){
-  str = str.split(' ').join('');
   var resArr = [];
   //Define each character in the string
   for (var i = 0; i < str.length; i++){
-    console.log(resArr);
-    console.log(typeof str[i]);
+    if (str[i] === ' ') continue;
     if (str[i] === '('){
       var opens = 1,
           index = i + 1;
@@ -23,21 +21,23 @@ function evalMath(str){
         if (str[index++] === ')') opens--;
       }
       //recursively pull out the parenthetical statement
-      resArr.push(evalMath(str.substring(i, index)));
+      resArr.push(evalMath(str.substring(i + 1, index)));
       //skip out of parentheses
       i += index - i - 1;
     }
     //Handle the minus sign
     else if (str[i] === '-') {
       var next = str[i + 1];
-      if (typeof next === 'number' || next === '('){
-        resArr.push(-1);
-        resArr.push('*');
+      if (next === ' ') resArr.push('-');
+      else if (!isNaN(Number(next)) || next === '('){
+        if(i - 1 < 0 || str[i - 1] === ' '){
+          resArr.push(-1);
+          resArr.push('*');
+        }
       }
       else resArr.push('-');
     }
     else if (!isNaN(Number(str[i]))) {
-      console.log('here');
       var numStr = str[i];
       var tempIndex = i + 1;
       while (str[tempIndex] === '.' || !isNaN(Number(str[tempIndex]))){
@@ -48,7 +48,8 @@ function evalMath(str){
     }
     else if (str[i] === '+' || str[i] === '*' || str[i] === '/') resArr.push(str[i]);
   }
-
+  console.log('before M/D')
+  console.log(resArr);
   //evaluate multiplication and division
   for (var i = 0; i < resArr.length; i++){
     var c = resArr[i];
@@ -58,13 +59,14 @@ function evalMath(str){
         resArr[i - 1] = resArr[i - 1] * tuple[1];
       }
       if (c === '/'){
-        var tuple = resArr.splice(i - 1, 2);
+        var tuple = resArr.splice(i, 2);
         resArr[i - 1] = resArr[i - 1] / tuple[1];
       }
       i--; 
     }
-
   }
+  console.log('before A/S')
+  console.log(resArr);  
   //evaluate addition and subtraction
   for (var i = 0; i < resArr.length; i++){
     var c = resArr[i];
@@ -74,7 +76,7 @@ function evalMath(str){
         resArr[i - 1] = resArr[i - 1] + tuple[1];
       }
       if (c === '-'){
-        var tuple = resArr.splice(i - 1, 2);
+        var tuple = resArr.splice(i, 2);
         resArr[i - 1] = resArr[i - 1] - tuple[1];
       }
       i--; 
