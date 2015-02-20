@@ -17,7 +17,7 @@ describe('Evaluate Mathematical Expressions', function(){
   });
   describe('Parenthetical Expressions', function(){
     it('should evaluate nested parenths', function(){
-      expect(evalMath('(1 + (-1))')).to.equal(2);
+      expect(evalMath('(2 / (2 + 3.33) * 4) - -6')).to.equal(7.50093808630394);
     });
   });
   describe('Negative numbers', function(){

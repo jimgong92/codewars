@@ -27,16 +27,20 @@ function evalMath(str){
     }
     //Handle the minus sign
     else if (str[i] === '-') {
-      var next = str[i + 1];
-      if (next === ' ') resArr.push('-');
-      else if (!isNaN(Number(next)) || next === '('){
-        var opPre = ['+','-','*','/'].indexOf(str[i - 1]) !== -1;
-        if(i - 1 < 0 || str[i - 1] === ' ' || opPre){
-          resArr.push(-1);
-          resArr.push('*');
-        }
+      /**
+       * Is a minus if:
+       *  -Next is a space
+       *  -Previous is a number
+       */
+      var next = str[i + 1] === ' ';
+      var prev = resArr.length > 0 && typeof resArr[resArr.length - 1] === 'number';
+      if (next || prev) {
+        resArr.push('-');
       }
-      else resArr.push('-');
+      else {
+        resArr.push(-1);
+        resArr.push('*');
+      }
     }
     else if (!isNaN(Number(str[i]))) {
       var numStr = str[i];
