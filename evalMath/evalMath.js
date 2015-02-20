@@ -30,7 +30,8 @@ function evalMath(str){
       var next = str[i + 1];
       if (next === ' ') resArr.push('-');
       else if (!isNaN(Number(next)) || next === '('){
-        if(i - 1 < 0 || str[i - 1] === ' '){
+        var opPre = ['+','-','*','/'].indexOf(str[i - 1]) !== -1;
+        if(i - 1 < 0 || str[i - 1] === ' ' || opPre){
           resArr.push(-1);
           resArr.push('*');
         }
@@ -48,8 +49,16 @@ function evalMath(str){
     }
     else if (str[i] === '+' || str[i] === '*' || str[i] === '/') resArr.push(str[i]);
   }
-  console.log('before M/D')
   console.log(resArr);
+  //evaluate negatives
+  for (var i = 0; i < resArr.length; i++){
+    var c = resArr[i];
+    if (c === -1 && resArr[i + 1] === '*'){
+      var tuple = resArr.splice(i + 1, 2);
+      resArr[i] = resArr[i] * tuple[1];
+      i--; 
+    }
+  }
   //evaluate multiplication and division
   for (var i = 0; i < resArr.length; i++){
     var c = resArr[i];
@@ -65,8 +74,6 @@ function evalMath(str){
       i--; 
     }
   }
-  console.log('before A/S')
-  console.log(resArr);  
   //evaluate addition and subtraction
   for (var i = 0; i < resArr.length; i++){
     var c = resArr[i];
